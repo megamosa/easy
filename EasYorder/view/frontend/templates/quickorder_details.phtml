@@ -1,0 +1,137 @@
+<?php
+/**
+ * @var \MagoArab\EasYorder\Block\QuickOrder $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$helper = $block->getHelper();
+$product = $block->getProduct();
+$countries = $block->getAvailableCountries();
+$paymentMethods = $block->getPaymentMethods();
+?>
+
+<div class="quickorder-details-form" id="quickorder-details-<?= $escaper->escapeHtmlAttr($product->getId()) ?>">
+    <div class="quickorder-header">
+        <h3><?= $escaper->escapeHtml(__('Quick Order Details')) ?></h3>
+        <p class="quickorder-description"><?= $escaper->escapeHtml(__('Fill in your details below to place a quick order for this product.')) ?></p>
+    </div>
+    
+    <form id="quickorder-details-form-<?= $escaper->escapeHtmlAttr($product->getId()) ?>" class="quickorder-form-details" data-product-id="<?= $escaper->escapeHtmlAttr($product->getId()) ?>">
+        <div class="quickorder-form-row">
+            <div class="quickorder-form-group half">
+                <label for="customer_name_details"><?= $escaper->escapeHtml(__('Full Name')) ?> <span class="required">*</span></label>
+                <input type="text" id="customer_name_details" name="customer_name" required class="quickorder-input" placeholder="<?= $escaper->escapeHtmlAttr(__('Enter your full name')) ?>">
+            </div>
+            <div class="quickorder-form-group half">
+                <label for="customer_phone_details"><?= $escaper->escapeHtml(__('Phone Number')) ?> <span class="required">*</span></label>
+                <input type="tel" id="customer_phone_details" name="customer_phone" required class="quickorder-input" placeholder="<?= $escaper->escapeHtmlAttr(__('Enter your phone number')) ?>">
+            </div>
+        </div>
+        
+        <?php if ($helper->isEmailRequired()): ?>
+        <div class="quickorder-form-group">
+            <label for="customer_email_details"><?= $escaper->escapeHtml(__('Email Address')) ?> <span class="required">*</span></label>
+            <input type="email" id="customer_email_details" name="customer_email" required class="quickorder-input" placeholder="<?= $escaper->escapeHtmlAttr(__('Enter your email address')) ?>">
+        </div>
+        <?php endif; ?>
+        
+        <div class="quickorder-form-group">
+            <label for="customer_address_details"><?= $escaper->escapeHtml(__('Detailed Address')) ?> <span class="required">*</span></label>
+            <textarea id="customer_address_details" name="customer_address" required class="quickorder-textarea" rows="3" placeholder="<?= $escaper->escapeHtmlAttr(__('Enter your complete address including street, building number, etc.')) ?>"></textarea>
+        </div>
+        
+        <div class="quickorder-form-row">
+            <div class="quickorder-form-group half">
+                <label for="customer_city_details"><?= $escaper->escapeHtml(__('City')) ?> <span class="required">*</span></label>
+                <input type="text" id="customer_city_details" name="customer_city" required class="quickorder-input" placeholder="<?= $escaper->escapeHtmlAttr(__('Enter your city')) ?>">
+            </div>
+            <div class="quickorder-form-group half">
+                <label for="province_details"><?= $escaper->escapeHtml(__('Province/State')) ?> <span class="required">*</span></label>
+                <select id="province_details" name="province" required class="quickorder-select">
+                    <option value=""><?= $escaper->escapeHtml(__('Select Province/State')) ?></option>
+                    <?php foreach ($countries as $countryCode => $countryData): ?>
+                        <optgroup label="<?= $escaper->escapeHtml($countryData['name']) ?>">
+                            <?php foreach ($countryData['provinces'] as $provinceCode => $provinceName): ?>
+                                <option value="<?= $escaper->escapeHtmlAttr($provinceCode) ?>"><?= $escaper->escapeHtml($provinceName) ?></option>
+                            <?php endforeach; ?>
+                        </optgroup>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        
+        <div class="quickorder-form-row">
+            <div class="quickorder-form-group half">
+                <label for="qty_details"><?= $escaper->escapeHtml(__('Quantity')) ?> <span class="required">*</span></label>
+                <input type="number" id="qty_details" name="qty" value="1" min="1" required class="quickorder-input">
+            </div>
+            <div class="quickorder-form-group half">
+                <label for="payment_method_details"><?= $escaper->escapeHtml(__('Payment Method')) ?> <span class="required">*</span></label>
+                <select id="payment_method_details" name="payment_method" required class="quickorder-select">
+                    <option value=""><?= $escaper->escapeHtml(__('Select Payment Method')) ?></option>
+                    <?php foreach ($paymentMethods as $method): ?>
+                        <option value="<?= $escaper->escapeHtmlAttr($method['value']) ?>"><?= $escaper->escapeHtml($method['label']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        
+        <div class="quickorder-shipping-info">
+            <h4><?= $escaper->escapeHtml(__('Shipping Information')) ?></h4>
+            <div id="shipping-cost-details" class="shipping-cost-display">
+                <span class="shipping-label"><?= $escaper->escapeHtml(__('Shipping Cost:')) ?></span>
+                <span class="shipping-amount">--</span>
+            </div>
+        </div>
+        
+        <div class="quickorder-total-details">
+            <div class="total-row">
+                <span class="total-label"><?= $escaper->escapeHtml(__('Product Price:')) ?></span>
+                <span class="total-amount product-price"><?= $block->formatPrice($product->getFinalPrice()) ?></span>
+            </div>
+            <div class="total-row">
+                <span class="total-label"><?= $escaper->escapeHtml(__('Shipping:')) ?></span>
+                <span class="total-amount shipping-total">--</span>
+            </div>
+            <div class="total-row grand-total">
+                <span class="total-label"><?= $escaper->escapeHtml(__('Total:')) ?></span>
+                <span class="total-amount grand-total-amount">--</span>
+            </div>
+        </div>
+        
+        <div class="quickorder-form-actions">
+            <button type="button" class="quickorder-btn quickorder-btn-estimate" onclick="estimateShippingDetails(<?= $escaper->escapeHtmlAttr($product->getId()) ?>)">
+                <?= $escaper->escapeHtml(__('Calculate Shipping')) ?>
+            </button>
+            <button type="submit" class="quickorder-btn quickorder-btn-submit">
+                <?= $escaper->escapeHtml(__('Place Quick Order')) ?>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+function estimateShippingDetails(productId) {
+    const form = document.getElementById('quickorder-details-form-' + productId);
+    const formData = new FormData(form);
+    
+    fetch('<?= $escaper->escapeUrl($block->getEstimateUrl()) ?>', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.querySelector('#quickorder-details-' + productId + ' .shipping-amount').textContent = data.shipping_cost;
+            document.querySelector('#quickorder-details-' + productId + ' .shipping-total').textContent = data.shipping_cost;
+            
+            const productPrice = parseFloat(<?= $product->getFinalPrice() ?>);
+            const shippingCost = parseFloat(data.shipping_cost.replace(/[^\d.-]/g, ''));
+            const qty = parseInt(formData.get('qty'));
+            const total = (productPrice * qty) + shippingCost;
+            
+            document.querySelector('#quickorder-details-' + productId + ' .grand-total-amount').textContent = '<?= $block->formatPrice(0) ?>'.replace('0', total.toFixed(2));
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+</script>

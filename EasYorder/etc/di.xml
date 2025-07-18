@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- API Interface Preferences -->
+    <preference for="MagoArab\EasYorder\Api\QuickOrderInterface" type="MagoArab\EasYorder\Model\QuickOrderRepository" />
+    <preference for="MagoArab\EasYorder\Api\Data\QuickOrderInterface" type="MagoArab\EasYorder\Model\Order\QuickOrder" />
+    
+    <!-- Virtual Types -->
+    <virtualType name="MagoArab\EasYorder\Model\ResourceModel\Order\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magoarab_easyorder_quickorder</argument>
+            <argument name="resourceModel" xsi:type="string">MagoArab\EasYorder\Model\ResourceModel\Order\QuickOrder</argument>
+        </arguments>
+    </virtualType>
+    
+    <!-- Data Provider -->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="easyorder_quickorder_listing_data_source" xsi:type="string">MagoArab\EasYorder\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

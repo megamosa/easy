@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <!-- Main Menu Access -->
+                <resource id="MagoArab_EasYorder::main_menu" title="MagoArab EasYorder" sortOrder="100">
+                    <!-- Quick Orders Management -->
+                    <resource id="MagoArab_EasYorder::quickorder_manage" title="Manage Quick Orders" sortOrder="10">
+                        <resource id="MagoArab_EasYorder::quickorder_view" title="View Quick Orders" sortOrder="10" />
+                        <resource id="MagoArab_EasYorder::quickorder_edit" title="Edit Quick Orders" sortOrder="20" />
+                        <resource id="MagoArab_EasYorder::quickorder_delete" title="Delete Quick Orders" sortOrder="30" />
+                        <resource id="MagoArab_EasYorder::quickorder_create" title="Create Quick Orders" sortOrder="40" />
+                        <resource id="MagoArab_EasYorder::quickorder_export" title="Export Quick Orders" sortOrder="50" />
+                        <resource id="MagoArab_EasYorder::quickorder_mass_action" title="Mass Actions" sortOrder="60" />
+                    </resource>
+                    
+                    <!-- Reports Access -->
+                    <resource id="MagoArab_EasYorder::quickorder_reports" title="Quick Order Reports" sortOrder="20">
+                        <resource id="MagoArab_EasYorder::reports_sales" title="Sales Reports" sortOrder="10" />
+                        <resource id="MagoArab_EasYorder::reports_customers" title="Customer Reports" sortOrder="20" />
+                        <resource id="MagoArab_EasYorder::reports_products" title="Product Reports" sortOrder="30" />
+                        <resource id="MagoArab_EasYorder::reports_countries" title="Country Reports" sortOrder="40" />
+                        <resource id="MagoArab_EasYorder::reports_analytics" title="Analytics Dashboard" sortOrder="50" />
+                    </resource>
+                    
+                    <!-- Email Templates -->
+                    <resource id="MagoArab_EasYorder::email_templates" title="Email Templates" sortOrder="30">
+                        <resource id="MagoArab_EasYorder::email_customer" title="Customer Email Templates" sortOrder="10" />
+                        <resource id="MagoArab_EasYorder::email_admin" title="Admin Email Templates" sortOrder="20" />
+                        <resource id="MagoArab_EasYorder::email_test" title="Test Email Sending" sortOrder="30" />
+                    </resource>
+                    
+                    <!-- Tools and Utilities -->
+                    <resource id="MagoArab_EasYorder::tools" title="Tools & Utilities" sortOrder="40">
+                        <resource id="MagoArab_EasYorder::tools_cleanup" title="Cleanup Old Orders" sortOrder="10" />
+                        <resource id="MagoArab_EasYorder::tools_import" title="Import Orders" sortOrder="20" />
+                        <resource id="MagoArab_EasYorder::tools_export" title="Export Orders" sortOrder="30" />
+                        <resource id="MagoArab_EasYorder::tools_logs" title="View Logs" sortOrder="40" />
+                        <resource id="MagoArab_EasYorder::tools_cache" title="Cache Management" sortOrder="50" />
+                    </resource>
+                </resource>
+                
+                <!-- Configuration Access -->
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="MagoArab_EasYorder::config" title="MagoArab EasYorder Configuration" sortOrder="100">
+                                <resource id="MagoArab_EasYorder::config_general" title="General Settings" sortOrder="10" />
+                                <resource id="MagoArab_EasYorder::config_countries" title="Multi-Country Settings" sortOrder="20" />
+                                <resource id="MagoArab_EasYorder::config_design" title="Design Settings" sortOrder="30" />
+                                <resource id="MagoArab_EasYorder::config_notifications" title="Notification Settings" sortOrder="40" />
+                                <resource id="MagoArab_EasYorder::config_advanced" title="Advanced Settings" sortOrder="50" />
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+                
+                <!-- Sales Menu Integration -->
+                <resource id="Magento_Sales::sales">
+                    <resource id="Magento_Sales::sales_operation">
+                        <resource id="MagoArab_EasYorder::sales_quickorder" title="Quick Orders" sortOrder="100" />
+                    </resource>
+                </resource>
+                
+                <!-- Reports Menu Integration -->
+                <resource id="Magento_Reports::report">
+                    <resource id="MagoArab_EasYorder::reports_integration" title="Quick Order Reports" sortOrder="100">
+                        <resource id="MagoArab_EasYorder::reports_bestsellers" title="Best Selling Products" sortOrder="10" />
+                        <resource id="MagoArab_EasYorder::reports_conversion" title="Conversion Reports" sortOrder="20" />
+                        <resource id="MagoArab_EasYorder::reports_geographic" title="Geographic Reports" sortOrder="30" />
+                    </resource>
+                </resource>
+                
+                <!-- Marketing Menu Integration -->
+                <resource id="Magento_Backend::marketing">
+                    <resource id="MagoArab_EasYorder::marketing_quickorder" title="Quick Order Promotions" sortOrder="100">
+                        <resource id="MagoArab_EasYorder::marketing_campaigns" title="Marketing Campaigns" sortOrder="10" />
+                        <resource id="MagoArab_EasYorder::marketing_coupons" title="Quick Order Coupons" sortOrder="20" />
+                    </resource>
+                </resource>
+                
+                <!-- System Menu Integration -->
+                <resource id="Magento_Backend::system">
+                    <resource id="MagoArab_EasYorder::system_maintenance" title="EasYorder Maintenance" sortOrder="100">
+                        <resource id="MagoArab_EasYorder::system_backup" title="Backup Quick Orders" sortOrder="10" />
+                        <resource id="MagoArab_EasYorder::system_restore" title="Restore Quick Orders" sortOrder="20" />
+                        <resource id="MagoArab_EasYorder::system_database" title="Database Maintenance" sortOrder="30" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <!-- Customer Order Confirmation Email -->
+    <template id="magoarab_easyorder_customer_order_confirmation" label="Quick Order - Customer Confirmation" file="customer_order_confirmation.html" type="html" module="MagoArab_EasYorder" area="frontend"/>
+    
+    <!-- Admin Order Notification Email -->
+    <template id="magoarab_easyorder_admin_order_notification" label="Quick Order - Admin Notification" file="admin_order_notification.html" type="html" module="MagoArab_EasYorder" area="adminhtml"/>
+    
+    <!-- Order Status Update Email -->
+    <template id="magoarab_easyorder_order_status_update" label="Quick Order - Status Update" file="order_status_update.html" type="html" module="MagoArab_EasYorder" area="frontend"/>
+</config>

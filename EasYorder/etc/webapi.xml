@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    
+    <!-- Submit Quick Order -->
+    <route url="/V1/easyorder/submit" method="POST">
+        <service class="MagoArab\EasYorder\Api\QuickOrderInterface" method="submitOrder"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    
+    <!-- Get Quick Order -->
+    <route url="/V1/easyorder/:quickOrderId" method="GET">
+        <service class="MagoArab\EasYorder\Api\QuickOrderInterface" method="getQuickOrder"/>
+        <resources>
+            <resource ref="MagoArab_EasYorder::quickorder_view"/>
+        </resources>
+    </route>
+    
+    <!-- Get Quick Orders List -->
+    <route url="/V1/easyorder/search" method="GET">
+        <service class="MagoArab\EasYorder\Api\QuickOrderInterface" method="getList"/>
+        <resources>
+            <resource ref="MagoArab_EasYorder::quickorder_manage"/>
+        </resources>
+    </route>
+    
+    <!-- Update Order Status -->
+    <route url="/V1/easyorder/:quickOrderId/status" method="PUT">
+        <service class="MagoArab\EasYorder\Api\QuickOrderInterface" method="updateStatus"/>
+        <resources>
+            <resource ref="MagoArab_EasYorder::quickorder_manage"/>
+        </resources>
+    </route>
+    
+    <!-- Estimate Shipping -->
+    <route url="/V1/easyorder/estimate-shipping" method="POST">
+        <service class="MagoArab\EasYorder\Api\QuickOrderInterface" method="estimateShipping"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    
+    <!-- Get Available Payment Methods -->
+    <route url="/V1/easyorder/payment-methods" method="GET">
+        <service class="MagoArab\EasYorder\Api\QuickOrderInterface" method="getAvailablePaymentMethods"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    
+    <!-- Get Available Shipping Methods -->
+    <route url="/V1/easyorder/shipping-methods" method="GET">
+        <service class="MagoArab\EasYorder\Api\QuickOrderInterface" method="getAvailableShippingMethods"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    
+</config>

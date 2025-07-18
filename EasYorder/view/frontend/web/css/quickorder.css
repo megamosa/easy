@@ -1,0 +1,257 @@
+/* MagoArab EasYorder Styles */
+.magoarab-easyorder-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 25px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.magoarab-easyorder-container:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.easyorder-title h3 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+}
+
+.easyorder-title h3:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    border-radius: 2px;
+}
+
+.easyorder-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.field-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.field {
+    flex: 1;
+    min-width: 250px;
+}
+
+.field .label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #495057;
+    font-size: 14px;
+}
+
+.field .control {
+    position: relative;
+}
+
+.field .input-text,
+.field .select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.field .input-text:focus,
+.field .select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.qty-btn {
+    background: #f8f9fa;
+    border: none;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #495057;
+    transition: all 0.3s ease;
+}
+
+.qty-btn:hover {
+    background: #e9ecef;
+    color: #007bff;
+}
+
+.qty-input {
+    border: none;
+    text-align: center;
+    width: 80px;
+    padding: 12px 8px;
+    font-weight: 600;
+}
+
+.shipping-options,
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.radio-option,
+.payment-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fff;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.radio-option:hover,
+.payment-option:hover {
+    border-color: #007bff;
+    background: #f8f9ff;
+}
+
+.radio-option input[type="radio"],
+.payment-option input[type="radio"] {
+    margin-right: 12px;
+    transform: scale(1.2);
+}
+
+.price-info {
+    margin-right: auto;
+    font-size: 12px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.payment-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.payment-icons img {
+    height: 30px;
+    width: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary {
+    background: #fff;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.total-price {
+    color: #28a745;
+    font-size: 20px;
+}
+
+.easyorder-actions {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.easyorder-submit {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+}
+
+.easyorder-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+}
+
+.easyorder-submit:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .field-row {
+        flex-direction: column;
+    }
+    
+    .field {
+        min-width: 100%;
+    }
+    
+    .magoarab-easyorder-container {
+        padding: 20px 15px;
+        margin: 15px 0;
+    }
+    
+    .easyorder-title h3 {
+        font-size: 20px;
+    }
+}
+
+/* Arabic RTL Support */
+[dir="rtl"] .magoarab-easyorder-container {
+    text-align: right;
+}
+
+[dir="rtl"] .field-row {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .radio-option input[type="radio"],
+[dir="rtl"] .payment-option input[type="radio"] {
+    margin-right: 0;
+    margin-left: 12px;
+}

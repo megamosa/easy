@@ -1,0 +1,43 @@
+<!--@subject {{trans "Quick Order Confirmation - Order #%increment_id" increment_id=$order.increment_id}} @-->
+<!--@vars {
+"var order":"Order",
+"var customer_name":"Customer Name",
+"var store_name":"Store Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<tr>
+    <td class="email-body">
+        <h1>{{trans "Thank you for your quick order!"}}</h1>
+        
+        <p>{{trans "Dear %customer_name," customer_name=$customer_name}}</p>
+        
+        <p>{{trans "We have received your quick order and it is being processed. Here are the details:"}}</p>
+        
+        <table class="order-details">
+            <tr>
+                <td><strong>{{trans "Order Number:"}}</strong></td>
+                <td>{{var order.increment_id}}</td>
+            </tr>
+            <tr>
+                <td><strong>{{trans "Product:"}}</strong></td>
+                <td>{{var order.product_name}}</td>
+            </tr>
+            <tr>
+                <td><strong>{{trans "Quantity:"}}</strong></td>
+                <td>{{var order.qty}}</td>
+            </tr>
+            <tr>
+                <td><strong>{{trans "Total Amount:"}}</strong></td>
+                <td>{{var order.total_amount}} {{var order.currency_code}}</td>
+            </tr>
+        </table>
+        
+        <p>{{trans "We will contact you shortly to confirm your order and arrange delivery."}}</p>
+        
+        <p>{{trans "Thank you for choosing %store_name!" store_name=$store_name}}</p>
+    </td>
+</tr>
+
+{{template config_path="design/email/footer_template"}}

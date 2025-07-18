@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MagoArab_EasYorder::main_menu" title="MagoArab EasYorder" module="MagoArab_EasYorder" sortOrder="100" resource="MagoArab_EasYorder::quickorder_manage"/>
+        <add id="MagoArab_EasYorder::quickorder_manage" title="Quick Orders" module="MagoArab_EasYorder" sortOrder="10" action="easyorder/order/index" resource="MagoArab_EasYorder::quickorder_manage" parent="MagoArab_EasYorder::main_menu"/>
+        <add id="MagoArab_EasYorder::quickorder_pending" title="Pending Orders" module="MagoArab_EasYorder" sortOrder="20" action="easyorder/order/pending" resource="MagoArab_EasYorder::quickorder_manage" parent="MagoArab_EasYorder::main_menu"/>
+        <add id="MagoArab_EasYorder::quickorder_reports" title="Reports" module="MagoArab_EasYorder" sortOrder="30" action="easyorder/reports/index" resource="MagoArab_EasYorder::quickorder_reports" parent="MagoArab_EasYorder::main_menu"/>
+        <add id="MagoArab_EasYorder::quickorder_config" title="Configuration" module="MagoArab_EasYorder" sortOrder="40" action="adminhtml/system_config/edit/section/magoarab_easyorder" resource="MagoArab_EasYorder::config" parent="MagoArab_EasYorder::main_menu"/>
+    </menu>
+</config>

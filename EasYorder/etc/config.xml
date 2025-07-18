@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <magoarab_easyorder>
+            <!-- General Settings -->
+            <general>
+                <enabled>1</enabled>
+                <title>طلب سريع</title>
+                <show_shipping>1</show_shipping>
+                <default_payment_method>cashondelivery</default_payment_method>
+                <default_shipping_method>flatrate_flatrate</default_shipping_method>
+                <require_phone>1</require_phone>
+                <require_email>0</require_email>
+                <auto_create_customer>0</auto_create_customer>
+                <min_order_amount>0</min_order_amount>
+                <max_order_amount>0</max_order_amount>
+                <allowed_customer_groups></allowed_customer_groups>
+            </general>
+            
+            <!-- Multi-Country Settings -->
+            <multicountry>
+                <use_store_countries>1</use_store_countries>
+                <specific_countries>EG,SA,AE,KW,QA,BH,OM,JO,LB,SY,IQ,MA,TN,DZ,LY,SD,YE</specific_countries>
+                <currency_conversion>1</currency_conversion>
+                <detect_country>1</detect_country>
+            </multicountry>
+            
+            <!-- Design Settings -->
+            <design>
+                <button_color>#007bff</button_color>
+                <position>below_product_details</position>
+                <show_on_categories></show_on_categories>
+                <hide_for_guest>0</hide_for_guest>
+                <enable_animations>1</enable_animations>
+                <custom_css></custom_css>
+            </design>
+            
+            <!-- Notification Settings -->
+            <notifications>
+                <admin_email></admin_email>
+                <order_status>pending</order_status>
+                <send_customer_email>1</send_customer_email>
+                <send_admin_email>1</send_admin_email>
+                <sms_notifications>0</sms_notifications>
+            </notifications>
+            
+            <!-- Advanced Settings -->
+            <advanced>
+                <enable_logging>1</enable_logging>
+                <rate_limiting>0</rate_limiting>
+                <max_orders_per_hour>10</max_orders_per_hour>
+                <enable_captcha>0</enable_captcha>
+                <inventory_check>1</inventory_check>
+            </advanced>
+        </magoarab_easyorder>
+        
+        <!-- Email Template Configuration -->
+        <system>
+            <smtp>
+                <disable>0</disable>
+            </smtp>
+        </system>
+        
+        <!-- Cache Configuration -->
+        <cache>
+            <types>
+                <magoarab_easyorder>1</magoarab_easyorder>
+            </types>
+        </cache>
+        
+        <!-- Cron Configuration -->
+        <crontab>
+            <default>
+                <jobs>
+                    <magoarab_easyorder_cleanup>
+                        <schedule>
+                            <cron_expr>0 2 * * *</cron_expr>
+                        </schedule>
+                        <run>
+                            <model>MagoArab\EasYorder\Cron\CleanupOrders::execute</model>
+                        </run>
+                    </magoarab_easyorder_cleanup>
+                    <magoarab_easyorder_statistics>
+                        <schedule>
+                            <cron_expr>0 1 * * *</cron_expr>
+                        </schedule>
+                        <run>
+                            <model>MagoArab\EasYorder\Cron\UpdateStatistics::execute</model>
+                        </run>
+                    </magoarab_easyorder_statistics>
+                </jobs>
+            </default>
+        </crontab>
+        
+        <!-- Payment Method Configuration -->
+        <payment>
+            <magoarab_easyorder_cod>
+                <active>1</active>
+                <model>Magento\OfflinePayments\Model\Cashondelivery</model>
+                <order_status>pending</order_status>
+                <title>Cash on Delivery (Quick Order)</title>
+                <allowspecific>0</allowspecific>
+                <instructions>Pay when you receive your order</instructions>
+                <sort_order>100</sort_order>
+            </magoarab_easyorder_cod>
+        </payment>
+        
+        <!-- Shipping Method Configuration -->
+        <carriers>
+            <magoarab_easyorder_shipping>
+                <active>1</active>
+                <model>MagoArab\EasYorder\Model\Shipping\Method</model>
+                <title>Quick Order Shipping</title>
+                <name>Quick Order Shipping</name>
+                <price>15.00</price>
+                <handling_type>F</handling_type>
+                <handling_fee>0</handling_fee>
+                <sort_order>100</sort_order>
+                <specificerrmsg>This shipping method is not available for quick orders.</specificerrmsg>
+                <allowspecific>0</allowspecific>
+            </magoarab_easyorder_shipping>
+        </carriers>
+        
+        <!-- SEO Configuration -->
+        <web>
+            <seo>
+                <use_rewrites>1</use_rewrites>
+            </seo>
+        </web>
+        
+        <!-- Security Configuration -->
+        <admin>
+            <security>
+                <session_lifetime>86400</session_lifetime>
+            </security>
+        </admin>
+        
+        <!-- Developer Configuration -->
+        <dev>
+            <debug>
+                <profiler>0</profiler>
+            </debug>
+            <template>
+                <allow_symlink>0</allow_symlink>
+            </template>
+            <js>
+                <merge_files>1</merge_files>
+                <enable_js_bundling>1</enable_js_bundling>
+                <minify_files>0</minify_files>
+            </js>
+            <css>
+                <merge_css_files>1</merge_css_files>
+                <minify_files>0</minify_files>
+            </css>
+        </dev>
+        
+        <!-- Analytics Configuration -->
+        <google>
+            <analytics>
+                <active>0</active>
+                <account></account>
+            </analytics>
+        </google>
+        
+        <!-- Catalog Configuration -->
+        <catalog>
+            <frontend>
+                <list_mode>grid</list_mode>
+                <grid_per_page_values>12,24,36</grid_per_page_values>
+                <grid_per_page>12</grid_per_page>
+                <list_per_page_values>5,10,15,20,25</list_per_page_values>
+                <list_per_page>10</list_per_page>
+            </frontend>
+            <quickorder>
+                <enabled>1</enabled>
+                <show_on_category>1</show_on_category>
+                <show_on_search>1</show_on_search>
+                <show_on_cms>0</show_on_cms>
+            </quickorder>
+        </catalog>
+        
+        <!-- Customer Configuration -->
+        <customer>
+            <quickorder>
+                <auto_group_assign>0</auto_group_assign>
+                <default_group>1</default_group>
+                <welcome_email>1</welcome_email>
+            </quickorder>
+            <create_account>
+                <auto_group_assign>0</auto_group_assign>
+                <default_group>1</default_group>
+                <email_domain></email_domain>
+                <email_template>customer_create_account_email_template</email_template>
+                <email_identity>general</email_identity>
+                <confirm>0</confirm>
+                <welcome_email>1</welcome_email>
+            </create_account>
+        </customer>
+        
+        <!-- Sales Configuration -->
+        <sales>
+            <quickorder>
+                <default_country>EG</default_country>
+                <default_currency>EGP</default_currency>
+                <tax_calculation>1</tax_calculation>
+                <discount_calculation>1</discount_calculation>
+            </quickorder>
+            <order>
+                <increment_prefix>QO</increment_prefix>
+                <increment_suffix></increment_suffix>
+                <increment_per_store>0</increment_per_store>
+            </order>
+        </sales>
+        
+        <!-- Tax Configuration -->
+        <tax>
+            <quickorder>
+                <apply_after_discount>1</apply_after_discount>
+                <display_type>2</display_type>
+                <display_shipping>2</display_shipping>
+            </quickorder>
+        </tax>
+        
+        <!-- Inventory Configuration -->
+        <cataloginventory>
+            <item_options>
+                <enable_qty_increments>0</enable_qty_increments>
+                <qty_increments>1</qty_increments>
+                <min_qty>1</min_qty>
+                <min_sale_qty>1</min_sale_qty>
+                <max_sale_qty>10000</max_sale_qty>
+                <is_qty_decimal>0</is_qty_decimal>
+                <backorders>0</backorders>
+                <notify_stock_qty>1</notify_stock_qty>
+                <manage_stock>1</manage_stock>
+            </item_options>
+        </cataloginventory>
+    </default>
+</config>

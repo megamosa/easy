@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="MagoArab_EasYorder::css/admin.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Config\Block\System\Config\Form" name="config_edit_form" template="Magento_Config::system/config/edit.phtml">
+                <block class="MagoArab\EasYorder\Block\Adminhtml\Config\TestEmail" name="easyorder_test_email" template="MagoArab_EasYorder::system/config/test_email.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

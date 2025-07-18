@@ -1,0 +1,422 @@
+<?php
+/**
+ * @var \MagoArab\EasYorder\Block\QuickOrder $block
+ */
+
+if (!$block->isEnabled()) {
+    return;
+}
+
+$product = $block->getCurrentProduct();
+if (!$product) {
+    return;
+}
+?>
+
+<div class="magoarab-easyorder-container" data-product-id="<?= $product->getId() ?>">
+    <div class="easyorder-title">
+        <h3><?= $block->escapeHtml($block->getTitle()) ?></h3>
+    </div>
+    
+    <form id="easyorder-form-<?= $product->getId() ?>" class="easyorder-form" data-mage-init='{"validation": {}}'>
+        <input type="hidden" name="product_id" value="<?= $product->getId() ?>" />
+        <input type="hidden" name="form_key" value="<?= $block->escapeHtml($block->getFormKey()) ?>" />
+        
+        <div class="easyorder-fields">
+            <div class="field-row">
+                <div class="field name-field">
+                    <label for="easyorder-name-<?= $product->getId() ?>" class="label">
+                        <span><?= __('الاسم') ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" 
+                               name="customer_name" 
+                               id="easyorder-name-<?= $product->getId() ?>"
+                               class="input-text" 
+                               data-validate="{required:true}"
+                               placeholder="<?= __('أدخل اسمك الكامل') ?>" />
+                    </div>
+                </div>
+                
+                <div class="field phone-field">
+                    <label for="easyorder-phone-<?= $product->getId() ?>" class="label">
+                        <span><?= __('رقم الهاتف') ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="tel" 
+                               name="customer_phone" 
+                               id="easyorder-phone-<?= $product->getId() ?>"
+                               class="input-text" 
+                               data-validate="<?= $block->isPhoneRequired() ? '{required:true}' : '' ?>"
+                               placeholder="<?= __('رقم الهاتف') ?>" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field address-field">
+                <label for="easyorder-address-<?= $product->getId() ?>" class="label">
+                    <span><?= __('العنوان بالتفصيل') ?></span>
+                </label>
+                <div class="control">
+                    <textarea name="customer_address" 
+                              id="easyorder-address-<?= $product->getId() ?>"
+                              class="input-text" 
+                              rows="3"
+                              data-validate="{required:true}"
+                              placeholder="<?= __('أدخل عنوانك بالتفصيل') ?>"></textarea>
+                </div>
+            </div>
+            
+            <div class="field-row">
+                <div class="field province-field">
+                    <label for="easyorder-province-<?= $product->getId() ?>" class="label">
+                        <span><?= __('المحافظة') ?></span>
+                    </label>
+                    <div class="control">
+                        <select name="province" 
+                                id="easyorder-province-<?= $product->getId() ?>"
+                                class="select" 
+                                data-validate="{required:true}">
+                            <option value=""><?= __('اختر المحافظة') ?></option>
+                            <?php foreach ($block->getAllowedCountries() as $country): ?>
+                                <option value="<?= $country['value'] ?>"><?= $block->escapeHtml($country['label']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="field quantity-field">
+                    <label for="easyorder-qty-<?= $product->getId() ?>" class="label">
+                        <span><?= __('عدد القطع') ?></span>
+                    </label>
+                    <div class="control">
+                        <div class="qty-controls">
+                            <button type="button" class="qty-btn minus" data-action="minus">-</button>
+                            <input type="number" 
+                                   name="qty" 
+                                   id="easyorder-qty-<?= $product->getId() ?>"
+                                   class="input-text qty-input" 
+                                   value="1" 
+                                   min="1"
+                                   data-validate="{required:true, 'validate-greater-than-zero':true}" />
+                            <button type="button" class="qty-btn plus" data-action="plus">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field shipping-cost-field">
+                <label class="label">
+                    <span><?= __('تكلفة الشحن') ?></span>
+                </label>
+                <div class="control">
+                    <span class="shipping-cost-text"><?= __('هل لديك كوبون خصم؟') ?></span>
+                    <div class="shipping-options">
+                        <label class="radio-option">
+                            <input type="radio" name="shipping_method" value="cod" checked />
+                            <span class="checkmark"></span>
+                            <?= __('دفع عند الاستلام') ?>
+                            <span class="price-info"><?= __('سيتم زيادة 15 جنيه') ?></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field payment-method-field">
+                <label class="label">
+                    <span><?= __('اختر وسيلة الدفع') ?></span>
+                </label>
+                <div class="control">
+                    <div class="payment-methods">
+                        <?php foreach ($block->getAvailablePaymentMethods() as $method): ?>
+                            <label class="payment-option">
+                                <input type="radio" 
+                                       name="payment_method" 
+                                       value="<?= $method['code'] ?>" 
+                                       <?= $method['code'] == $block->getDefaultPaymentMethod() ? 'checked' : '' ?> />
+                                <span class="checkmark"></span>
+                                <?= $block->escapeHtml($method['title']) ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="payment-icons">
+                        <img src="<?= $block->getViewFileUrl('MagoArab_EasYorder::images/mastercard.png') ?>" alt="Mastercard" />
+                        <img src="<?= $block->getViewFileUrl('MagoArab_EasYorder::images/visa.png') ?>" alt="Visa" />
+                        <img src="<?= $block->getViewFileUrl('MagoArab_EasYorder::images/fawry.png') ?>" alt="Fawry" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span class="label"><?= __('الإجمالي') ?></span>
+                    <span class="value total-price" data-base-price="<?= $product->getFinalPrice() ?>">
+                        <?= $block->getFormattedPrice($product->getFinalPrice()) ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="easyorder-actions">
+            <button type="submit" class="action primary easyorder-submit" style="background-color: <?= $block->getButtonColor() ?>">
+                <span><?= __('اضغط هنا للشراء') ?></span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<?php if ($block->getCustomCss()): ?>
+    <style type="text/css">
+        <?= $block->getCustomCss() ?>
+    </style>
+<?php endif; ?>
+
+<style>
+.magoarab-easyorder-container {
+    background: #f8f9fa;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.easyorder-title h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.easyorder-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.field-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.field-row .field {
+    flex: 1;
+    min-width: 200px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #34495e;
+}
+
+.field input, .field textarea, .field select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.field input:focus, .field textarea:focus, .field select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    border: 2px solid #bdc3c7;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.qty-btn {
+    background: #ecf0f1;
+    border: none;
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.qty-btn:hover {
+    background: #d5dbdb;
+}
+
+.qty-input {
+    border: none !important;
+    text-align: center;
+    flex: 1;
+    padding: 12px 10px;
+}
+
+.shipping-options, .payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-option, .payment-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ecf0f1;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radio-option:hover, .payment-option:hover {
+    background: #ecf0f1;
+    border-color: #3498db;
+}
+
+.radio-option input, .payment-option input {
+    width: auto;
+    margin: 0;
+}
+
+.price-info {
+    margin-right: auto;
+    color: #e74c3c;
+    font-size: 12px;
+}
+
+.payment-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.payment-icons img {
+    height: 30px;
+    width: auto;
+}
+
+.order-summary {
+    background: #fff;
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.total-price {
+    color: #27ae60;
+    font-size: 18px;
+}
+
+.easyorder-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.easyorder-submit {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.easyorder-submit:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+@media (max-width: 768px) {
+    .field-row {
+        flex-direction: column;
+    }
+    
+    .field-row .field {
+        min-width: 100%;
+    }
+}
+</style>
+
+<script>
+require(['jquery', 'mage/validation'], function($) {
+    $(document).ready(function() {
+        // Quantity controls
+        $('.qty-btn').on('click', function(e) {
+            e.preventDefault();
+            var action = $(this).data('action');
+            var qtyInput = $(this).siblings('.qty-input');
+            var currentQty = parseInt(qtyInput.val()) || 1;
+            
+            if (action === 'plus') {
+                qtyInput.val(currentQty + 1);
+            } else if (action === 'minus' && currentQty > 1) {
+                qtyInput.val(currentQty - 1);
+            }
+            
+            updateTotal();
+        });
+        
+        // Update total when quantity changes
+        $('.qty-input').on('change keyup', function() {
+            updateTotal();
+        });
+        
+        function updateTotal() {
+            var qty = parseInt($('.qty-input').val()) || 1;
+            var basePrice = parseFloat($('.total-price').data('base-price')) || 0;
+            var shippingCost = 15; // Fixed shipping cost
+            var total = (basePrice * qty) + shippingCost;
+            
+            $('.total-price').text(total.toFixed(2) + ' ج.م');
+        }
+        
+        // Form submission
+        $('.easyorder-form').on('submit', function(e) {
+            e.preventDefault();
+            
+            if ($(this).validation('isValid')) {
+                var formData = $(this).serialize();
+                
+                $.ajax({
+                    url: '<?= $block->getQuickOrderUrl() ?>',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    showLoader: true,
+                    success: function(response) {
+                        if (response.success) {
+                            alert('تم تسجيل طلبك بنجاح! سيتم التواصل معك قريباً.');
+                            $('.easyorder-form')[0].reset();
+                        } else {
+                            alert(response.message || 'حدث خطأ. يرجى المحاولة مرة أخرى.');
+                        }
+                    },
+                    error: function() {
+                        alert('حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى.');
+                    }
+                });
+            }
+        });
+    });
+});
+</script>

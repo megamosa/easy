@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magoarab" translate="label" sortOrder="200">
+            <label>MagoArab Extensions</label>
+        </tab>
+        
+        <section id="magoarab_easyorder" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>EasYorder - طلب سريع</label>
+            <tab>magoarab</tab>
+            <resource>MagoArab_EasYorder::config</resource>
+            
+            <!-- General Settings -->
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>الإعدادات العامة</label>
+                
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>تفعيل البلجن</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>تفعيل أو إلغاء تفعيل خاصية الطلب السريع</comment>
+                </field>
+                
+                <field id="title" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>عنوان القسم</label>
+                    <comment>العنوان الذي سيظهر فوق نموذج الطلب السريع</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="show_shipping" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>إظهار تكلفة الشحن</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>إظهار تكلفة الشحن في نموذج الطلب</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="require_phone" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>رقم الهاتف مطلوب</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>جعل رقم الهاتف حقل إجباري</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="require_email" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>البريد الإلكتروني مطلوب</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>جعل البريد الإلكتروني حقل إجباري</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="auto_create_customer" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>إنشاء حساب عميل تلقائياً</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>إنشاء حساب عميل جديد تلقائياً عند الطلب</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="min_order_amount" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>أقل مبلغ للطلب</label>
+                    <comment>أقل مبلغ مسموح للطلب السريع (0 = بدون حد أدنى)</comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="max_order_amount" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>أعلى مبلغ للطلب</label>
+                    <comment>أعلى مبلغ مسموح للطلب السريع (0 = بدون حد أقصى)</comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            
+            <!-- Design Settings -->
+            <group id="design" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>إعدادات التصميم</label>
+                
+                <field id="button_color" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>لون زر الطلب</label>
+                    <comment>لون زر "اضغط هنا للشراء" (مثال: #007bff)</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="position" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>موضع النموذج</label>
+                    <source_model>MagoArab\EasYorder\Model\Config\Source\Position</source_model>
+                    <comment>مكان ظهور نموذج الطلب السريع في صفحة المنتج</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="hide_for_guest" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>إخفاء للزوار</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>إخفاء نموذج الطلب السريع للزوار غير المسجلين</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="enable_animations" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>تفعيل الحركات</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>تفعيل الحركات والتأثيرات البصرية</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="custom_css" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>CSS مخصص</label>
+                    <comment>كود CSS إضافي لتخصيص مظهر النموذج</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            
+            <!-- Payment & Shipping Settings -->
+            <group id="payment_shipping" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>إعدادات الدفع والشحن</label>
+                
+                <field id="default_payment_method" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>طريقة الدفع الافتراضية</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Allmethods</source_model>
+                    <comment>طريقة الدفع المحددة مسبقاً في النموذج</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="default_shipping_method" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>طريقة الشحن الافتراضية</label>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allmethods</source_model>
+                    <comment>طريقة الشحن المحددة مسبقاً</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            
+            <!-- Notification Settings -->
+            <group id="notifications" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>إعدادات الإشعارات</label>
+                
+                <field id="admin_email" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>بريد المدير الإلكتروني</label>
+                    <comment>البريد الإلكتروني لاستقبال إشعارات الطلبات الجديدة</comment>
+                    <validate>validate-email</validate>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="send_customer_email" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>إرسال بريد للعميل</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>إرسال بريد تأكيد للعميل عند الطلب</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="send_admin_email" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>إرسال بريد للمدير</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>إرسال إشعار للمدير عند طلب جديد</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            
+            <!-- Advanced Settings -->
+            <group id="advanced" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>الإعدادات المتقدمة</label>
+                
+                <field id="enable_logging" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>تفعيل السجلات</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>حفظ سجل بجميع العمليات والأخطاء</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="rate_limiting" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>تحديد معدل الطلبات</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>تحديد عدد الطلبات المسموحة لكل عميل في الساعة</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+                
+                <field id="max_orders_per_hour" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>أقصى عدد طلبات في الساعة</label>
+                    <comment>أقصى عدد طلبات مسموح لكل عميل في الساعة الواحدة</comment>
+                    <validate>validate-number validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="rate_limiting">1</field>
+                    </depends>
+                </field>
+                
+                <field id="inventory_check" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>فحص المخزون</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>فحص توفر المنتج في المخزون قبل الطلب</comment>
+                    <depends>
+                        <field id="magoarab_easyorder/general/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

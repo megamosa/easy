@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="magoarab_easyorder_before_order_submit">
+        <observer name="magoarab_easyorder_order_submit_observer" instance="MagoArab\EasYorder\Observer\OrderSubmitObserver" />
+    </event>
+    <event name="magoarab_easyorder_after_order_submit">
+        <observer name="magoarab_easyorder_order_submit_after_observer" instance="MagoArab\EasYorder\Observer\OrderSubmitObserver" />
+    </event>
+    <event name="sales_order_place_after">
+        <observer name="magoarab_easyorder_sales_order_place_after" instance="MagoArab\EasYorder\Observer\OrderSubmitObserver" />
+    </event>
+</config>
